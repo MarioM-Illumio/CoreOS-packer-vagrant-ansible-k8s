@@ -41,3 +41,6 @@
   args:
     chdir: "{{ ca_base_resources_dir }}"
     # creates: worker.pem
+
+- name: Fix Worker certs permisions
+  file: path={{ ca_base_resources_dir }} mode=0777 state=directory recurse=yes

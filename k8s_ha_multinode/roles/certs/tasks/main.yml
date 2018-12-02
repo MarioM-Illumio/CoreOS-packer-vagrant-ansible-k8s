@@ -17,3 +17,4 @@
 - name: Generate kubernetes worker certificates
   include: worker-certs.yml
   delegate_to: localhost
+

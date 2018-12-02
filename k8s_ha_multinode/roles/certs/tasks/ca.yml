@@ -51,3 +51,6 @@
   args:
     chdir: "{{ ca_base_resources_dir }}"
     # creates: admin.pem
+
+- name: Fix CA permisions
+  file: path={{ ca_base_resources_dir }} mode=0777 state=directory recurse=yes
