@@ -1,6 +1,10 @@
 ## High-Availability Multi-Node Kubernetes Cluster
 ---
 
+```
+$ cd ..k8s_ha_multinode/haproxy; build.sh; cd ..; vagrant up; ansible-playbook  kubernetes.yml
+```
+
 A **completely Dockerized** multi-node Kubernetes highly-available cluster provisioned using Vagrant/Ansible, based on Kubernetes version **1.12** 
 
 **Note**: This is not a production-ready setup. Instead, this is intended to be a base/idea for one (if looking for custom setups, otherwise [Kubeadm][0] does job pretty well).
