@@ -12,7 +12,7 @@ This is the packer configuration for building Core-OS image with pre-setup Pytho
 
 **Currently based on CoreOS Stable 1911.4.0**
 
-**Vagrant-Cloud Link**: https://app.vagrantup.com/adavarski/boxes/coreos_ansible
+**Vagrant-Cloud Link**: https://app.vagrantup.com/davarski/boxes/coreos_ansible
 
 ### About
 
