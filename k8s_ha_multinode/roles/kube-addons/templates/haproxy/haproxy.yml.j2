@@ -24,7 +24,7 @@ spec:
       hostNetwork: true
       containers:
         - name: haproxy-{{ worker_id }}
-          image: jaskaranbir/haproxy:1.0.0
+          image: davarski/haproxy:latest
           env:
             - name: HAPROXY_CONFIG
               value: "{{ kube_config_dir }}/haproxy.cfg"
