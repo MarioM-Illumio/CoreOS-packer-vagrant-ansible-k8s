@@ -94,6 +94,26 @@ sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-proxy.yaml  
 sudo kubectl config --kubeconfig=/home/core/.kube/config set-cluster default-cluster --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
 
 $ sudo systemctl restart kubelet
+
+core@kube-worker-01 /etc/kubernetes/addons $ kubectl get pods -o wide --sort-by="{.spec.nodeName}" --all-namespaces
+NAMESPACE     NAME                                      READY   STATUS    RESTARTS   AGE   IP             NODE           NOMINATED NODE
+kube-system   kube-scheduler-172.17.8.102               1/1     Running   0          42m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-apiserver-172.17.8.102               1/1     Running   0          42m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-controller-manager-172.17.8.102      1/1     Running   0          42m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-proxy-172.17.8.102                   1/1     Running   0          42m   172.17.8.102   172.17.8.102   <none>
+kube-system   weave-net-c2q6k                           2/2     Running   0          42m   172.17.8.102   172.17.8.102   <none>
+kube-system   coredns-primary-f489746ff-ndsjq           1/1     Running   0          26m   10.44.0.2      172.17.8.103   <none>
+kube-system   kube-addon-manager-172.17.8.103           1/1     Running   0          15m   172.17.8.103   172.17.8.103   <none>
+kube-system   kube-proxy-172.17.8.103                   1/1     Running   0          15m   172.17.8.103   172.17.8.103   <none>
+kube-system   haproxy-kube-worker-01-5f866584b5-2f29c   1/1     Running   0          26m   172.17.8.103   172.17.8.103   <none>
+kube-system   kubernetes-dashboard-659798bd99-7x6br     1/1     Running   0          26m   10.44.0.1      172.17.8.103   <none>
+kube-system   weave-net-4mtxh                           2/2     Running   0          39m   172.17.8.103   172.17.8.103   <none>
+core@kube-worker-01 /etc/kubernetes/addons $ kubectl get svc --all-namespaces
+NAMESPACE     NAME                   TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
+default       kubernetes             ClusterIP   10.3.0.1     <none>        443/TCP                  43m
+kube-system   coredns-primary        ClusterIP   10.3.0.10    <none>        53/UDP,53/TCP,9153/TCP   32m
+kube-system   kubernetes-dashboard   ClusterIP   10.3.0.247   <none>        443/TCP                  32m
+
 ```
 
 #### TODO:
