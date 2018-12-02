@@ -2,7 +2,7 @@
 
 This is the packer configuration for building Core-OS image with pre-setup Python, Ansible, and Docker-Compose.
 
-**Currently based on version Based on CoreOS Stable 1800.4.0.**
+**Currently based on CoreOS Stable 1800.4.0.**
 
 **Vagrant-Cloud Link**: https://app.vagrantup.com/adavarski/boxes/coreos_ansible
 
@@ -10,7 +10,7 @@ This is the packer configuration for building Core-OS image with pre-setup Pytho
 
 This configuration targets **Vagrant-VirtualBox** only (at the moment).
 So it generates a Vagrant box.
-However, other targets such as VMWare can be easily added.
+However, other targets such as VMWare, KVM/QEMU can be easily added.
 
 This is the latest stable release (as per commit-date) for the Core-OS.
 It uses [ActivePython][1] for Python, and installs Ansible using PIP.
@@ -72,7 +72,7 @@ Manual Testing: Just execute `tests/basic_test_suite.sh`.
 
 ### FAQs
 
-* **Do you intend to suport any other options such as VMWare?**
+* **Do you intend to suport any other options such as VMWare, KVM/QEMU?**
 
 No, no such plans yet. As I said earlier, it should be easy to extend this configuration
 to other hypervisors. I like free stuff; VirtualBox is free, and simple.
