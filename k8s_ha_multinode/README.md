@@ -83,6 +83,20 @@ $ ansible-playbook  kubernetes.yml
 ### Additional addons setup:
 
 ```
+davar@home ~/LABS/CoreOS-packer-vagrant-ansible-k8s/k8s_ha_multinode/roles/kube-addons/tasks $ diff main.yml main.yml.addons 
+34,36c34
+<   command: 'kubectl apply -f "{{ item.src }}"'
+<   with_filetree: "{{ kube_addons_dir }}"
+<   when: item.state == "file"
+---
+>   command: 'kubectl apply -f "{{ kube_addons_dir }}"'
+58c56
+<     kubectl config --kubeconfig={{ item.config }} set-cluster {{ item.cluster }}
+---
+>     kubectl config --kubeconfig={{ item.config }} set-cluster {{ item.cluster }} --insecure-skip-tls-verify=true
+
+or Manual
+
 vagrant ssh kube-worker-01
 core@kube-worker-01 ~ $ cd /etc/kubernetes/addons/
 core@kube-worker-01 /etc/kubernetes/addons $ kubectl create -f .
