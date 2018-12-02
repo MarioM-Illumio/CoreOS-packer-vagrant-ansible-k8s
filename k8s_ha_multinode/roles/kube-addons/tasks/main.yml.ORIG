@@ -31,7 +31,9 @@
     dest: "{{ kube_config_dir }}/haproxy.cfg"
 
 - name: Apply Kubernetes addons
-  command: 'kubectl apply -f "{{ kube_addons_dir }}"'
+  command: 'kubectl apply -f "{{ item.src }}"'
+  with_filetree: "{{ kube_addons_dir }}"
+  when: item.state == "file"
   become: false
 
 - name: Wait for HAProxy to start
@@ -53,7 +55,7 @@
 
 - name: Switch kubeconfigs to use reverse-proxy server
   command: >
-    kubectl config --kubeconfig={{ item.config }} set-cluster {{ item.cluster }} --insecure-skip-tls-verify=true
+    kubectl config --kubeconfig={{ item.config }} set-cluster {{ item.cluster }}
       --server=https://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:{{ haproxy_port }}
   with_items:
     - config: "{{ kube_config_dir }}/kubeconfig-kubelet.yaml"
