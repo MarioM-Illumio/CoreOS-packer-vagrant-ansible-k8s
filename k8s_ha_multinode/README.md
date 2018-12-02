@@ -36,7 +36,53 @@ Kube-Worker: 1
 
 * The setup is based on a custom packed **CoreOS** based Vagrant-image from point 1.
 
-* Just run `vagarnt up`, and it will automatically run install/run Ansible and setup a local Kubernetes cluster.
+* Just run `vagarnt up`, and it will automatically provison env
+
+* run Ansible and setup a local Kubernetes cluster.
+
+### Run Ansible and setup a local Kubernetes cluster.
+
+Setup inventory
+```
+all:
+  vars:
+    ansible_python_interpreter: /opt/bin/python
+
+  children:
+
+    etcd:
+      hosts:
+        etcd-01:
+          ansible_ssh_host: 172.17.8.101
+          ansible_user: core
+          ansible_ssh_common_args: -o StrictHostKeyChecking=no
+          ansible_ssh_private_key_file: ./.vagrant/machines/etcd-01/virtualbox/private_key
+
+
+    kubernetes:
+      children:
+
+        kubernetes-masters:
+          hosts:
+            kube-master-01:
+               ansible_ssh_host: 172.17.8.102
+               ansible_user: core
+               ansible_ssh_common_args: -o StrictHostKeyChecking=no
+               ansible_ssh_private_key_file: ./.vagrant/machines/kube-master-01/virtualbox/private_key
+
+        kubernetes-workers:
+          hosts:
+            kube-worker-01:
+               ansible_ssh_host: 172.17.8.103
+               ansible_user: core
+               ansible_ssh_common_args: -o StrictHostKeyChecking=no
+               ansible_ssh_private_key_file: ./.vagrant/machines/kube-worker-01/virtualbox/private_key
+```
+$ ansible-playbook  kubernetes.yml
+
+$ mkdir -p ./out/ca; sudo chown -R ${USER}: ./out/
+
+$ ansible-playbook  kubernetes.yml
 
 #### TODO:
 
