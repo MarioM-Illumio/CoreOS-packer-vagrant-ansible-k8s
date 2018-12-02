@@ -80,20 +80,6 @@ all:
 ```
 $ ansible-playbook  kubernetes.yml
 
-
-#### TODO:
-
-* HAProxy hosts are not dynamic, need to manully add to config and restart HAProxy.
-* Improve Security.
-Suggestions welcomed.
-
-### Ansible Notes
-
-* When adding/removing instances, be sure to also update the Ansible [inventory][4].
-
-* Ansible copies its templates for manifests/configs to `/etc/kubernetes`, which will contain all Kubernetes resources, including certificates.
-
-
 ### Additional addons setup:
 
 ```
@@ -108,6 +94,21 @@ sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-proxy.yaml  
 sudo kubectl config --kubeconfig=/home/core/.kube/config set-cluster default-cluster --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
 
 $ sudo systemctl restart kubelet
+
+#### TODO:
+
+* HAProxy hosts are not dynamic, need to manully add to config and restart HAProxy.
+* Improve Security.
+Suggestions welcomed.
+
+### Ansible Notes
+
+* When adding/removing instances, be sure to also update the Ansible [inventory][4].
+
+* Ansible copies its templates for manifests/configs to `/etc/kubernetes`, which will contain all Kubernetes resources, including certificates.
+
+
+
 ```
 
 
