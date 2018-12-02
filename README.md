@@ -10,7 +10,7 @@ $ vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansib
 
 This is the packer configuration for building Core-OS image with pre-setup Python, Ansible, and Docker-Compose.
 
-**Currently based on CoreOS Stable 1800.4.0.**
+**Currently based on CoreOS Stable 1911.4.0**
 
 **Vagrant-Cloud Link**: https://app.vagrantup.com/adavarski/boxes/coreos_ansible
 
