@@ -215,6 +215,21 @@ sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-proxy.yaml  
 sudo kubectl config --kubeconfig=/home/core/.kube/config set-cluster default-cluster --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
 
 $ sudo systemctl restart kubelet
+
+core@kube-worker-01 /etc/kubernetes/addons $ kubectl get pods -o wide --sort-by="{.spec.nodeName}" --all-namespaces
+NAMESPACE     NAME                                      READY   STATUS    RESTARTS   AGE     IP             NODE           NOMINATED NODE
+kube-system   kube-scheduler-172.17.8.102               1/1     Running   0          4h58m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-apiserver-172.17.8.102               1/1     Running   0          4h58m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-controller-manager-172.17.8.102      1/1     Running   0          4h58m   172.17.8.102   172.17.8.102   <none>
+kube-system   kube-proxy-172.17.8.102                   1/1     Running   0          4h58m   172.17.8.102   172.17.8.102   <none>
+kube-system   weave-net-c2q6k                           2/2     Running   0          4h58m   172.17.8.102   172.17.8.102   <none>
+kube-system   coredns-primary-f489746ff-zpws9           1/1     Running   0          84m     10.44.0.1      172.17.8.103   <none>
+kube-system   kube-addon-manager-172.17.8.103           1/1     Running   0          83m     172.17.8.103   172.17.8.103   <none>
+kube-system   kube-proxy-172.17.8.103                   1/1     Running   0          83m     172.17.8.103   172.17.8.103   <none>
+kube-system   haproxy-kube-worker-01-7c985bbb98-5mh2x   1/1     Running   0          17m     172.17.8.103   172.17.8.103   <none>
+kube-system   kubernetes-dashboard-659798bd99-npwtr     1/1     Running   0          84m     10.44.0.2      172.17.8.103   <none>
+kube-system   weave-net-4mtxh                           2/2     Running   0          4h55m   172.17.8.103   172.17.8.103   <none>
+
 ```
 #### TODO:
 
