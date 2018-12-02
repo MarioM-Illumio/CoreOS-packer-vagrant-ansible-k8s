@@ -87,8 +87,26 @@ Additionally, this is usually the base setup for my Vagrant these days.
  [1]: https://www.activestate.com/activepython
  [2]: https://github.com/coreos/coreos-vagrant
 
-### Import box
+### Import box to VirtualBox from box file
 
 ```
 vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansible_stable_1800-4-0.box 
 ```
+
+### UPLOAD to Vagrant Cloud
+
+you'll need to get an access token and upload .box via curl.
+
+```
+davar@home ~/LABS/CoreOS-packer-vagrant-ansible-k8s/packer_coreos-ansible-python $ curl 'https://vagrantcloud.com/api/v1/box/davarski/coreos_ansible/version/1.0/provider/virtualbox/upload?access_token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+{"upload_path":"https://archivist.vagrantup.com/v1/object/yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"}
+
+
+$ curl -X PUT --upload-file ./builds/stable/virtualbox/coreos_ansible_stable_1800-4-0.box https://archivist.vagrantup.com/v1/object/yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+
+Test:
+
+davar@home ~/LABS/CoreOS-packer-vagrant-ansible-k8s/packer_coreos-ansible-python $ curl 'https://vagrantcloud.com/api/v1/box/davarski/coreos_ansible/version/1.0/provider/virtualbox/?access_token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+{"name":"virtualbox","hosted":true,"hosted_token":null,"original_url":null,"created_at":"2018-12-02T23:01:10.246Z","updated_at":"2018-12-02T23:01:10.246Z","download_url":"https://vagrantcloud.com/davarski/boxes/coreos_ansible/versions/1.0/providers/virtualbox.box"}
+```
+alternatively you can use Packer Vagrant Cloud post-processor https://www.packer.io/docs/post-processors/vagrant-cloud.html
