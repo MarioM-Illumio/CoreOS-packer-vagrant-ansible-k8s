@@ -1,0 +1,14 @@
+.history
+.vagrant
+.vscode
+out
+.history
+.vagrant
+.vscode
+
+builds
+packer_cache
+
+*.log
+manifest.json*
+Vagrantfile.ORIG
