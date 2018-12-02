@@ -2,7 +2,7 @@
 
 This is the packer configuration for building Core-OS image with pre-setup Python, Ansible, and Docker-Compose.
 
-**Currently based on CoreOS Stable 1800.4.0.**
+**Currently based on CoreOS Stable 1911.4.0**
 
 **Vagrant-Cloud Link**: https://app.vagrantup.com/adavarski/boxes/coreos_ansible
 **Vagrant Keys Link** https://github.com/hashicorp/vagrant/tree/master/keys used by packer.
