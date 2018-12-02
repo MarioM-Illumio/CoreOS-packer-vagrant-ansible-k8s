@@ -105,6 +105,10 @@ vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansible
 
 ## High-Availability Multi-Node Kubernetes Cluster
 ---
+```
+$ cd ..k8s_ha_multinode/haproxy; build.sh; cd ..; vagrant up; ansible-playbook  kubernetes.yml
+```
+
 
 A **completely Dockerized** multi-node Kubernetes highly-available cluster provisioned using Vagrant/Ansible, based on Kubernetes version **1.12** 
 
