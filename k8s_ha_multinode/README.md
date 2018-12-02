@@ -94,6 +94,7 @@ sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-proxy.yaml  
 sudo kubectl config --kubeconfig=/home/core/.kube/config set-cluster default-cluster --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
 
 $ sudo systemctl restart kubelet
+```
 
 #### TODO:
 
