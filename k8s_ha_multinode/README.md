@@ -93,6 +93,25 @@ Suggestions welcomed.
 
 * Ansible copies its templates for manifests/configs to `/etc/kubernetes`, which will contain all Kubernetes resources, including certificates.
 
+
+### Additional addons setup:
+
+```
+vagrant ssh kube-worker-01
+core@kube-worker-01 ~ $ cd /etc/kubernetes/addons/
+core@kube-worker-01 /etc/kubernetes/addons $ kubectl create -f .
+
+Test HA:
+
+sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-kubelet.yaml  set-cluster local --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
+sudo kubectl config --kubeconfig=/etc/kubernetes/configs/kubeconfig-proxy.yaml  set-cluster local --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
+sudo kubectl config --kubeconfig=/home/core/.kube/config set-cluster default-cluster --insecure-skip-tls-verify=true --server=https://172.17.8.103:6443
+
+$ sudo systemctl restart kubelet
+```
+
+
+
   [0]: https://kubernetes.io/docs/setup/independent/install-kubeadm/
   [1]: https://www.weave.works/oss/net/
   [2]: https://coredns.io/
