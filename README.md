@@ -187,10 +187,6 @@ all:
 
 $ ansible-playbook  kubernetes.yml
 
-$ mkdir -p ./out/ca; sudo chown -R ${USER}: ./out/
-
-$ ansible-playbook  kubernetes.yml
-
 
 #### TODO:
 
