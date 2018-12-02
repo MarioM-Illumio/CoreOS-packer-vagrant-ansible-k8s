@@ -1,4 +1,4 @@
-### 1.Create CoreOS vagrant box with python, ansible, docker-copose inside.
+# 1.Create CoreOS vagrant box with python, ansible, docker-copose inside.
 
 ```
 $ cd packer_coreos-ansible-python; packer build coreos.json; 
@@ -100,7 +100,7 @@ vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansible
 
 ```
 
-#### 2.Create HA Multi-Node k8s Cluster
+# 2.Create HA Multi-Node k8s Cluster
 
 
 ## High-Availability Multi-Node Kubernetes Cluster
