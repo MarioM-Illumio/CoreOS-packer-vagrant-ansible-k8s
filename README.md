@@ -1,10 +1,16 @@
-1.Create vagrant box based on CoreOS with python, ansible, docker-copose
+### 1.Create CoreOS vagrant box with python, ansible, docker-copose inside.
 
-## Core-OS with Python, Ansible, and Docker-Compose
+```
+$ cd packer_coreos-ansible-python; packer build coreos.json; 
+$ vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansible_stable_1800-4-0.box 
+
+```
+
+## CoreOS with Python, Ansible, and Docker-Compose
 
 This is the packer configuration for building Core-OS image with pre-setup Python, Ansible, and Docker-Compose.
 
-**Currently based on version Based on CoreOS Stable 1800.4.0.**
+**Currently based on CoreOS Stable 1800.4.0.**
 
 **Vagrant-Cloud Link**: https://app.vagrantup.com/adavarski/boxes/coreos_ansible
 
@@ -12,7 +18,7 @@ This is the packer configuration for building Core-OS image with pre-setup Pytho
 
 This configuration targets **Vagrant-VirtualBox** only (at the moment).
 So it generates a Vagrant box.
-However, other targets such as VMWare can be easily added.
+However, other targets such as VMWare, KVM/QEMU can be easily added.
 
 This is the latest stable release (as per commit-date) for the Core-OS.
 It uses [ActivePython][1] for Python, and installs Ansible using PIP.
@@ -74,7 +80,7 @@ Manual Testing: Just execute `tests/basic_test_suite.sh`.
 
 ### FAQs
 
-* **Do you intend to suport any other options such as VMWare?**
+* **Do you intend to suport any other options such as VMWare, KVM/QEMU?**
 
 No, no such plans yet. As I said earlier, it should be easy to extend this configuration
 to other hypervisors. I like free stuff; VirtualBox is free, and simple.
@@ -87,13 +93,14 @@ Additionally, this is usually the base setup for my Vagrant these days.
  [1]: https://www.activestate.com/activepython
  [2]: https://github.com/coreos/coreos-vagrant
 
-### Import box
+### Import builded box
 
 ```
 vagrant box add --force coreos_ansible ./builds/stable/virtualbox/coreos_ansible_stable_1800-4-0.box 
+
 ```
-========================
-2.Create cluster
+
+#### 2.Create HA Multi-Node k8s Cluster
 
 
 ## High-Availability Multi-Node Kubernetes Cluster
@@ -132,9 +139,58 @@ Kube-Master: 1
 Kube-Worker: 1
 ```
 
-* The setup is based on a custom packed **CoreOS** based Vagrant-image from point 1.
+* The setup is based on a custom packed **CoreOS** based Vagrant-image from previous packer build box.
 
-* Just run `vagarnt up`, and it will automatically run install/run Ansible and setup a local Kubernetes cluster.
+* Just run `vagarnt up`, and it will automatically create VMs
+
+* run  Ansible and setup a local Kubernetes cluster.
+
+
+### Run Ansible and setup a local Kubernetes cluster.
+
+Setup inventory
+```
+all:
+  vars:
+    ansible_python_interpreter: /opt/bin/python
+
+  children:
+
+    etcd:
+      hosts:
+        etcd-01:
+          ansible_ssh_host: 172.17.8.101
+          ansible_user: core
+          ansible_ssh_common_args: -o StrictHostKeyChecking=no
+          ansible_ssh_private_key_file: ./.vagrant/machines/etcd-01/virtualbox/private_key
+
+
+    kubernetes:
+      children:
+
+        kubernetes-masters:
+          hosts:
+            kube-master-01:
+               ansible_ssh_host: 172.17.8.102
+               ansible_user: core
+               ansible_ssh_common_args: -o StrictHostKeyChecking=no
+               ansible_ssh_private_key_file: ./.vagrant/machines/kube-master-01/virtualbox/private_key
+
+        kubernetes-workers:
+          hosts:
+            kube-worker-01:
+               ansible_ssh_host: 172.17.8.103
+               ansible_user: core
+               ansible_ssh_common_args: -o StrictHostKeyChecking=no
+               ansible_ssh_private_key_file: ./.vagrant/machines/kube-worker-01/virtualbox/private_key
+```
+
+$ ansible-playbook  kubernetes.yml
+
+$ mkdir -p ./out/ca; sudo chown -R ${USER}: ./out/
+
+$ ansible-playbook  kubernetes.yml
+
 
 #### TODO:
 
