@@ -122,11 +122,38 @@ kube-system   kube-proxy-172.17.8.103                   1/1     Running   0     
 kube-system   haproxy-kube-worker-01-5f866584b5-2f29c   1/1     Running   0          26m   172.17.8.103   172.17.8.103   <none>
 kube-system   kubernetes-dashboard-659798bd99-7x6br     1/1     Running   0          26m   10.44.0.1      172.17.8.103   <none>
 kube-system   weave-net-4mtxh                           2/2     Running   0          39m   172.17.8.103   172.17.8.103   <none>
-core@kube-worker-01 /etc/kubernetes/addons $ kubectl get svc --all-namespaces
-NAMESPACE     NAME                   TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
-default       kubernetes             ClusterIP   10.3.0.1     <none>        443/TCP                  43m
-kube-system   coredns-primary        ClusterIP   10.3.0.10    <none>        53/UDP,53/TCP,9153/TCP   32m
-kube-system   kubernetes-dashboard   ClusterIP   10.3.0.247   <none>        443/TCP                  32m
+
+core@kube-worker-01 /etc/kubernetes/addons $ kubectl get all --all-namespaces                                      
+NAMESPACE     NAME                                          READY   STATUS    RESTARTS   AGE
+kube-system   pod/coredns-primary-f489746ff-zpws9           1/1     Running   0          85m
+kube-system   pod/haproxy-kube-worker-01-7c985bbb98-5mh2x   1/1     Running   0          18m
+kube-system   pod/kube-addon-manager-172.17.8.103           1/1     Running   0          84m
+kube-system   pod/kube-apiserver-172.17.8.102               1/1     Running   0          4h59m
+kube-system   pod/kube-controller-manager-172.17.8.102      1/1     Running   0          4h59m
+kube-system   pod/kube-proxy-172.17.8.102                   1/1     Running   0          4h59m
+kube-system   pod/kube-proxy-172.17.8.103                   1/1     Running   0          84m
+kube-system   pod/kube-scheduler-172.17.8.102               1/1     Running   0          4h59m
+kube-system   pod/kubernetes-dashboard-659798bd99-npwtr     1/1     Running   0          85m
+kube-system   pod/weave-net-4mtxh                           2/2     Running   0          4h56m
+kube-system   pod/weave-net-c2q6k                           2/2     Running   0          4h59m
+
+NAMESPACE     NAME                           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
+default       service/kubernetes             ClusterIP   10.3.0.1     <none>        443/TCP                  5h
+kube-system   service/coredns-primary        ClusterIP   10.3.0.10    <none>        53/UDP,53/TCP,9153/TCP   4h48m
+kube-system   service/kubernetes-dashboard   ClusterIP   10.3.0.247   <none>        443/TCP                  4h48m
+
+NAMESPACE     NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   daemonset.apps/weave-net   2         2         2       2            2           <none>          4h59m
+
+NAMESPACE     NAME                                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/coredns-primary          1         1         1            1           4h48m
+kube-system   deployment.apps/haproxy-kube-worker-01   1         1         1            1           18m
+kube-system   deployment.apps/kubernetes-dashboard     1         1         1            1           4h48m
+
+NAMESPACE     NAME                                                DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/coredns-primary-f489746ff           1         1         1       4h48m
+kube-system   replicaset.apps/haproxy-kube-worker-01-7c985bbb98   1         1         1       18m
+kube-system   replicaset.apps/kubernetes-dashboard-659798bd99     1         1         1       4h48m
 
 ```
 
