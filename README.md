@@ -270,7 +270,6 @@ kube-system   replicaset.apps/kubernetes-dashboard-659798bd99     1         1   
 
 * HAProxy hosts are not dynamic, need to manully add to config and restart HAProxy.
 * Improve Security.
-Suggestions welcomed.
 
 ### Ansible Notes
 
